@@ -1,5 +1,5 @@
-import express from "express";
-import * as data from "./data.json" assert { type: "json" };
+var express = require("express");
+var data = require("./data.json");
 
 const app = express();
 const port = 8080; // default port to listen
