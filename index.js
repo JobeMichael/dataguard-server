@@ -17,10 +17,29 @@ apiRouter.get("/plugins", (req, res) => {
   res.send(plugins);
 });
 
-apiRouter.post("/plugins", (req, res) => {
-  plugins = null;
-  console.log(plugins);
-  res.send("This is the data endpoint");
+apiRouter.put("/plugins", (req, res) => {
+  const { tabKey, field, pluginKey, fieldStatus } = req.body;
+
+  if (field === "active") {
+    const tabdata = plugins.data.tabdata[tabKey];
+
+    if (!fieldStatus) {
+      tabdata.active = tabdata.active.filter((plugin) => plugin !== pluginKey);
+
+      tabdata.inactive.push(pluginKey);
+    } else {
+      tabdata.inactive = tabdata.inactive.filter(
+        (plugin) => plugin !== pluginKey
+      );
+
+      tabdata.active.push(pluginKey);
+    }
+  }
+  if (field === "disabled") {
+    plugins.data.disabled = fieldStatus;
+  }
+
+  res.send("Suceessfully updated the plugins");
 });
 
 // Mount the API router under the '/api' namespace
