@@ -1,9 +1,11 @@
-var express = require("express");
-var data = require("./data.json");
+const express = require("express");
+const data = require("./data.json");
+const cors = require("cors");
 
 const app = express();
 const port = 8080; // default port to listen
 
+app.use(cors());
 app.use(express.json());
 let plugins = data;
 
